@@ -2,33 +2,25 @@ const express = require("express");
 const router = express.Router();
 const Product = require("../models/Product");
 
-// ✅ GET with search + pagination + sorting
+// ✅ GET with Search Functionality
 router.get("/", async (req, res) => {
   console.log("GET HIT");
 
   try {
-    const { search, page = 1, limit = 5, sort = "asc" } = req.query;
+    const { search } = req.query;
 
     let query = {};
 
+    // 🔍 Search by product name
     if (search) {
       query.name = { $regex: search, $options: "i" };
     }
 
-    const total = await Product.countDocuments(query);
-
-    const sortOption = sort === "desc" ? -1 : 1;
-
-    const products = await Product.find(query)
-      .sort({ price: sortOption })
-      .skip((page - 1) * limit)
-      .limit(parseInt(limit));
+    const products = await Product.find(query);
 
     res.json({
       success: true,
-      totalProducts: total,
-      currentPage: parseInt(page),
-      totalPages: Math.ceil(total / limit),
+      count: products.length,
       data: products
     });
 
@@ -44,6 +36,7 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const product = new Product(req.body);
+
     await product.save();
 
     res.status(201).json(product);
