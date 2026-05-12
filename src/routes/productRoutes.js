@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
 
     const products = await Product.find(query);
 
-    res.json({
+    res.json({ 
       success: true,
       count: products.length,
       data: products

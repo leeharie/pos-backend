@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Login Page</title>
+
+  <style>
+
+    body{
+      margin:0;
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:#dfe3ea;
+      font-family:Arial;
+    }
+
+    .login-box{
+      background:white;
+      padding:40px;
+      border-radius:15px;
+      width:300px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    h1{
+      text-align:center;
+      color:#2d5be3;
+    }
+
+    input{
+      width:100%;
+      padding:12px;
+      margin-top:15px;
+      border-radius:8px;
+      border:1px solid #ccc;
+    }
+
+    button{
+      width:100%;
+      padding:12px;
+      margin-top:20px;
+      border:none;
+      border-radius:8px;
+      background:#2d5be3;
+      color:white;
+      font-size:16px;
+      cursor:pointer;
+    }
+
+    button:hover{
+      background:#1d46c2;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="login-box">
+
+    <h1>POS Login</h1>
+
+    <input type="email" id="email" placeholder="Enter Email">
+
+    <input type="password" id="password" placeholder="Enter Password">
+
+    <button onclick="login()">
+      Login
+    </button>
+
+  </div>
+
+  <script>
+
+    function login(){
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      if(email === "admin@gmail.com" && password === "1234"){
+
+        alert("Login Successful");
+
+        window.location.href = "index.html";
+
+      } else {
+
+        alert("Invalid Email or Password");
+
+      }
+
+    }
+
+  </script>
+
+</body>
+
+</html>
