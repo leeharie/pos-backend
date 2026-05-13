@@ -1,10 +1,14 @@
 const productsContainer = document.getElementById("productsContainer");
 
+let total = 0;
+
+
+// LOAD PRODUCTS
 async function loadProducts() {
 
   try {
 
-    const response = await fetch("http://localhost:5000/api/products");
+    const response = await fetch("http://127.0.0.1:5000/api/products");
 
     const result = await response.json();
 
@@ -18,6 +22,8 @@ async function loadProducts() {
 
         <div class="card">
 
+          <img src="${product.image}" width="150">
+
           <h2>${product.name}</h2>
 
           <p>Price: $${product.price}</p>
@@ -28,28 +34,41 @@ async function loadProducts() {
             Delete
           </button>
 
+          <button onclick="addToCart('${product.name}', ${product.price})">
+            Add To Cart
+          </button>
+
         </div>
 
       `;
+
     });
 
   } catch (error) {
 
-    console.log(error);
+    console.log("Error:", error);
 
   }
+
 }
 
-loadProducts();
 
-// ✅ ADD PRODUCT
+// VERY IMPORTANT
+window.onload = loadProducts;
+
+
+// ADD PRODUCT
 async function addProduct() {
 
   const name = document.getElementById("name").value;
+
   const price = document.getElementById("price").value;
+
   const quantity = document.getElementById("quantity").value;
 
-  const response = await fetch("http://localhost:5000/api/products", {
+  const image = document.getElementById("image").value;
+
+  await fetch("http://localhost:5000/api/products", {
 
     method: "POST",
 
@@ -60,19 +79,20 @@ async function addProduct() {
     body: JSON.stringify({
       name,
       price,
-      quantity
+      quantity,
+      image
     })
 
   });
 
-  await response.json();
-
   alert("Product Added");
 
   location.reload();
+
 }
 
-// ✅ DELETE PRODUCT
+
+// DELETE PRODUCT
 async function deleteProduct(id) {
 
   await fetch(`http://localhost:5000/api/products/${id}`, {
@@ -84,9 +104,11 @@ async function deleteProduct(id) {
   alert("Product Deleted");
 
   location.reload();
+
 }
 
-// ✅ SEARCH PRODUCT
+
+// SEARCH PRODUCT
 async function searchProducts() {
 
   const search = document.getElementById("searchInput").value;
@@ -107,14 +129,71 @@ async function searchProducts() {
 
       <div class="card">
 
+        <img src="${product.image}" width="150">
+
         <h2>${product.name}</h2>
 
         <p>Price: $${product.price}</p>
 
         <p>Quantity: ${product.quantity}</p>
 
+        <button onclick="deleteProduct('${product._id}')">
+          Delete
+        </button>
+
+        <button onclick="addToCart('${product.name}', ${product.price})">
+          Add To Cart
+        </button>
+
       </div>
 
     `;
+
   });
+
+}
+
+
+// ADD TO CART
+function addToCart(name, price) {
+
+  const cartContainer =
+    document.getElementById("cartContainer");
+
+  cartContainer.innerHTML += `
+    <p>${name} - $${price}</p>
+  `;
+
+  total += price;
+
+  document.getElementById("totalAmount").innerText =
+    `Total: $${total}`;
+
+}
+
+
+// CHECKOUT
+function checkout() {
+
+  document.getElementById("paymentBox").style.display =
+    "block";
+
+}
+
+
+// PLACE ORDER
+function placeOrder() {
+
+  alert("Order Placed Successfully ✅");
+
+  document.getElementById("cartContainer").innerHTML = "";
+
+  total = 0;
+
+  document.getElementById("totalAmount").innerText =
+    "Total: $0";
+
+  document.getElementById("paymentBox").style.display =
+    "none";
+
 }

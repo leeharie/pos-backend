@@ -1,85 +1,126 @@
 const express = require("express");
+
 const router = express.Router();
+
 const Product = require("../models/Product");
 
-// ✅ GET with Search Functionality
+
+// ✅ GET PRODUCTS + SEARCH
 router.get("/", async (req, res) => {
-  console.log("GET HIT");
 
   try {
+
     const { search } = req.query;
 
     let query = {};
 
-    // 🔍 Search by product name
+    // SEARCH BY NAME
     if (search) {
-      query.name = { $regex: search, $options: "i" };
+
+      query.name = {
+        $regex: search,
+        $options: "i"
+      };
+
     }
 
     const products = await Product.find(query);
 
-    res.json({ 
+    res.json({
       success: true,
       count: products.length,
       data: products
     });
 
   } catch (error) {
+
     res.status(500).json({
       success: false,
       message: error.message
     });
+
   }
 });
 
-// ✅ POST
+
+// ✅ ADD PRODUCT
 router.post("/", async (req, res) => {
+
   try {
-    const product = new Product(req.body);
+
+    const product = new Product({
+
+      name: req.body.name,
+
+      price: req.body.price,
+
+      quantity: req.body.quantity,
+
+      image: req.body.image
+
+    });
 
     await product.save();
 
     res.status(201).json(product);
 
   } catch (error) {
+
     res.status(500).json({
       message: error.message
     });
+
   }
 });
 
-// ✅ PUT
+
+// ✅ UPDATE PRODUCT
 router.put("/:id", async (req, res) => {
+
   try {
-    const updatedProduct = await Product.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
+
+    const updatedProduct =
+      await Product.findByIdAndUpdate(
+
+        req.params.id,
+
+        req.body,
+
+        { new: true }
+
+      );
 
     res.json(updatedProduct);
 
   } catch (error) {
+
     res.status(500).json({
       message: error.message
     });
+
   }
 });
 
-// ✅ DELETE
+
+// ✅ DELETE PRODUCT
 router.delete("/:id", async (req, res) => {
+
   try {
+
     await Product.findByIdAndDelete(req.params.id);
 
     res.json({
-      message: "Deleted"
+      message: "Deleted Successfully"
     });
 
   } catch (error) {
+
     res.status(500).json({
       message: error.message
     });
+
   }
 });
+
 
 module.exports = router;

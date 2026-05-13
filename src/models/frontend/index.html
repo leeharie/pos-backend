@@ -1,27 +1,125 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
   <title>POS Frontend</title>
+
   <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
   <h1>POS Products</h1>
-  <input type="text" id="searchInput" placeholder="Search Product">
 
-<button onclick="searchProducts()">
-Search
-</button>
+  <!-- SEARCH -->
+
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Search Product"
+  >
+
+  <button onclick="searchProducts()">
+    Search
+  </button>
+
+  <!-- PRODUCTS -->
 
   <div id="productsContainer"></div>
 
-  <script src="script.js"></script>
+  <!-- CART -->
+
+  <h2>Cart</h2>
+
+  <div id="cartContainer"></div>
+
+  <h3 id="totalAmount">
+    Total: $0
+  </h3>
+
+  <!-- CHECKOUT -->
+
+  <button onclick="checkout()">
+    Checkout
+  </button>
+
+  <!-- PAYMENT -->
+
+  <div
+    id="paymentBox"
+    style="display:none; margin-top:20px;"
+  >
+
+    <h2>Payment Details</h2>
+
+    <input
+      type="text"
+      id="cardName"
+      placeholder="Card Holder Name"
+    >
+
+    <input
+      type="text"
+      id="cardNumber"
+      placeholder="Card Number"
+    >
+
+    <input
+      type="text"
+      id="expiry"
+      placeholder="Expiry Date"
+    >
+
+    <input
+      type="text"
+      id="cvv"
+      placeholder="CVV"
+    >
+
+    <button onclick="placeOrder()">
+      Place Order
+    </button>
+
+  </div>
+
+  <!-- ADD PRODUCT -->
+
+  <h2>Add Product</h2>
+
+  <input
+    type="text"
+    id="name"
+    placeholder="Product Name"
+  >
+
+  <input
+    type="number"
+    id="price"
+    placeholder="Price"
+  >
+
+  <input
+    type="number"
+    id="quantity"
+    placeholder="Quantity"
+  >
+
+  <input
+    type="text"
+    id="image"
+    placeholder="Image URL"
+  >
+
+  <button onclick="addProduct()">
+    Add Product
+  </button>
+
+  <!-- SCRIPT -->
+
+  <script src="./script.js"></script>
 
 </body>
-</html>
-<input type="text" id="name" placeholder="Product Name">
-<input type="number" id="price" placeholder="Price">
-<input type="number" id="quantity" placeholder="Quantity">
 
-<button onclick="addProduct()">Add Product</button>
+</html>

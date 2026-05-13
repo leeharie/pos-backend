@@ -2,6 +2,7 @@
 <html>
 
 <head>
+
   <title>Login Page</title>
 
   <style>
@@ -35,6 +36,7 @@
       margin-top:15px;
       border-radius:8px;
       border:1px solid #ccc;
+      box-sizing:border-box;
     }
 
     button{
@@ -63,9 +65,17 @@
 
     <h1>POS Login</h1>
 
-    <input type="email" id="email" placeholder="Enter Email">
+    <input
+      type="email"
+      id="email"
+      placeholder="Enter Email"
+    >
 
-    <input type="password" id="password" placeholder="Enter Password">
+    <input
+      type="password"
+      id="password"
+      placeholder="Enter Password"
+    >
 
     <button onclick="login()">
       Login
@@ -77,16 +87,22 @@
 
     function login(){
 
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+      const email =
+        document.getElementById("email").value;
 
-      if(email === "admin@gmail.com" && password === "1234"){
+      const password =
+        document.getElementById("password").value;
 
-        alert("Login Successful");
+      if(
+        email === "admin@gmail.com" &&
+        password === "1234"
+      ){
 
-        window.location.href = "index.html";
+        alert("Login Successful ✅");
 
-      } else {
+        window.location.replace("index.html");
+
+      }else{
 
         alert("Invalid Email or Password");
 
