@@ -16,3 +16,5 @@ Request Body:
   "price": 10,
   "quantity": 5
 }
+
+Day 2: Product display functionality completed.
