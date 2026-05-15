@@ -68,7 +68,7 @@ async function addProduct() {
 
   const image = document.getElementById("image").value;
 
-  await fetch("http://localhost:5000/api/products", {
+await fetch("http://127.0.0.1:5000/api/products", {
 
     method: "POST",
 

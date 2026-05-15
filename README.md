@@ -6,7 +6,7 @@ http://localhost:5000/api/products
 Endpoints:
 
 GET /api/products
-POST /api/products
+POST /Sapi/products
 PUT /api/products/:id
 DELETE /api/products/:id
 
