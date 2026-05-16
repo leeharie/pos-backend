@@ -18,3 +18,4 @@ Request Body:
 }
 
 Day 2: Product display functionality completed.
+Day 4: Delete product functionality completed.
